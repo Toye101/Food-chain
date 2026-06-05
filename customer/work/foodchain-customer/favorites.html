@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Favorites - FoodChain</title>
+<link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Afacad:wght@400;500;600;700&family=Afacad+Flux:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"/>
+<style>
+:root{--ink:#15110f;--muted:#786f68;--line:#eee5dc;--paper:#fffaf6;--brand:#f97316;--brand-dark:#c84d0b;}*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--paper);font-family:"Afacad",Arial,sans-serif;color:var(--ink);}button{border:0;cursor:pointer;font:inherit}.app{width:100%;min-height:100vh;background:linear-gradient(180deg,#fffaf6 0%,#f8f1eb 100%);padding-bottom:28px;}nav{display:flex;align-items:center;gap:12px;padding:14px 18px;background:rgba(255,255,255,.92);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:100;backdrop-filter:blur(14px);}.icon-btn{width:42px;height:42px;border-radius:12px;background:#fff;border:1.5px solid var(--line);display:grid;place-items:center;color:var(--ink);flex:0 0 auto;}.nav-title{flex:1}.nav-title strong{display:block;font-family:"Cal Sans","Afacad",Arial,sans-serif;font-size:18px;}.nav-title span{display:block;color:var(--muted);font-size:12px;}.hero{margin:18px;background:#17110e;border-radius:22px;padding:20px;color:#fff;}.hero-tag{background:var(--brand);font-size:11px;font-family:"Afacad Flux",Arial,sans-serif;font-weight:700;padding:5px 10px;border-radius:999px;display:inline-block;margin-bottom:9px;}.hero h1{font-family:"Cal Sans","Afacad",Arial,sans-serif;font-size:28px;letter-spacing:0;}.hero p{color:#d1c7bf;margin-top:6px;font-size:14px;}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;padding:0 18px;}.fav-card{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 20px rgba(45,31,20,.04);}.fav-card img{width:100%;height:128px;object-fit:cover;display:block;background:#241b17;}.fav-body{padding:12px;}.fav-name{font-family:"Cal Sans","Afacad",Arial,sans-serif;font-size:16px;}.fav-meta{color:var(--muted);font-size:12px;margin:4px 0 10px;line-height:1.35;}.fav-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;}.price{font-family:"Afacad Flux",Arial,sans-serif;color:var(--brand-dark);font-weight:800;}.remove{background:#fff0e6;color:var(--brand-dark);border-radius:999px;padding:7px 10px;font-family:"Afacad Flux",Arial,sans-serif;font-size:12px;font-weight:800;}.empty{margin:0 18px;padding:28px;border:1.5px dashed #e7d7c8;border-radius:18px;text-align:center;color:var(--muted);background:#fff;}@media(max-width:560px){.grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="app">
+  <nav><button class="icon-btn" onclick="window.location.href='index.html'" aria-label="Back home"><i class="ti ti-arrow-left"></i></button><div class="nav-title"><strong>Favorites</strong><span>Meals saved with the heart button</span></div></nav>
+  <section class="hero"><div class="hero-tag">Saved Meals</div><h1>Your favorite food options</h1><p>Tap the heart beside any food item to add or remove it here.</p></section>
+  <div class="grid" id="favoritesGrid"></div>
+  <div class="empty" id="emptyState" style="display:none;"><strong>No favorites yet</strong><br/>Go to a cafeteria and tap a heart beside a food item.</div>
+</div>
+<script>
+function formatNaira(amount){return new Intl.NumberFormat("en-NG",{style:"currency",currency:"NGN",maximumFractionDigits:0}).format(amount);}
+function getFavorites(){return JSON.parse(localStorage.getItem("foodchainFavorites")||"[]");}
+function saveFavorites(items){localStorage.setItem("foodchainFavorites",JSON.stringify(items));}
+function removeFavorite(key){saveFavorites(getFavorites().filter(item=>item.key!==key));renderFavorites();}
+function renderFavorites(){const items=getFavorites();document.getElementById("emptyState").style.display=items.length?"none":"block";document.getElementById("favoritesGrid").innerHTML=items.map(item=>`<article class="fav-card"><img src="${item.img}" alt="${item.name}"/><div class="fav-body"><div class="fav-name">${item.name}</div><div class="fav-meta"><i class="ti ti-building-store"></i> ${item.cafe}<br/>${item.desc||"Saved food option"}</div><div class="fav-footer"><div class="price">${formatNaira(item.price)}</div><button class="remove" onclick="removeFavorite('${item.key}')"><i class="ti ti-heart-filled"></i> Remove</button></div></div></article>`).join("");}
+renderFavorites();
+</script>
+</body>
+</html>
+
+
+

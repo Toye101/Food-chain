@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Settings - FoodChain</title>
+<link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Afacad:wght@400;500;600;700&family=Afacad+Flux:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"/>
+<style>
+:root{--ink:#15110f;--muted:#786f68;--line:#eee5dc;--paper:#fffaf6;--brand:#f97316;--brand-dark:#c84d0b;}*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--paper);font-family:"Afacad",Arial,sans-serif;color:var(--ink);}button,input,select{font:inherit;}button{border:0;cursor:pointer}.app{width:100%;min-height:100vh;background:linear-gradient(180deg,#fffaf6 0%,#f8f1eb 100%);padding-bottom:28px;}nav{display:flex;align-items:center;gap:12px;padding:14px 18px;background:rgba(255,255,255,.92);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:100;backdrop-filter:blur(14px);}.icon-btn{width:42px;height:42px;border-radius:12px;background:#fff;border:1.5px solid var(--line);display:grid;place-items:center;color:var(--ink);flex:0 0 auto;}.nav-title{flex:1}.nav-title strong{display:block;font-family:"Cal Sans","Afacad",Arial,sans-serif;font-size:18px;}.nav-title span{display:block;color:var(--muted);font-size:12px;}.hero{margin:18px;background:#17110e;border-radius:22px;padding:20px;color:#fff;}.hero-tag{background:var(--brand);font-size:11px;font-family:"Afacad Flux",Arial,sans-serif;font-weight:700;padding:5px 10px;border-radius:999px;display:inline-block;margin-bottom:9px;}.hero h1{font-family:"Cal Sans","Afacad",Arial,sans-serif;font-size:28px;letter-spacing:0;}.hero p{color:#d1c7bf;margin-top:6px;font-size:14px;}.section{padding:0 18px 16px;}.section-title{font-family:"Cal Sans","Afacad",Arial,sans-serif;font-size:21px;margin:10px 0;}.panel{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 8px 20px rgba(45,31,20,.04);display:grid;gap:12px;}.field{display:grid;gap:5px;}.field label{font-family:"Afacad Flux",Arial,sans-serif;font-size:13px;color:#4a4039;}.field input,.field select{width:100%;border:1.5px solid var(--line);background:#fffaf6;border-radius:13px;padding:11px 12px;outline:0;color:var(--ink);}.row{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #f3ece5;padding:4px 0 12px;}.row:last-child{border-bottom:0;padding-bottom:0}.row strong{font-family:"Afacad Flux",Arial,sans-serif;font-size:15px;}.row span{display:block;color:var(--muted);font-size:12px;margin-top:2px;}.toggle{width:48px;height:28px;border-radius:999px;background:#e9ded3;position:relative;flex:0 0 auto;}.toggle:after{content:"";position:absolute;top:4px;left:4px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .18s;box-shadow:0 2px 6px rgba(0,0,0,.12);}.toggle.on{background:var(--brand);}.toggle.on:after{left:24px;}.danger{background:#fff0e6;color:var(--brand-dark);border-radius:14px;padding:11px 12px;font-family:"Afacad Flux",Arial,sans-serif;font-weight:800;text-align:center;}.status{min-height:18px;color:var(--brand-dark);font-family:"Afacad Flux",Arial,sans-serif;font-size:13px;text-align:center;}
+</style>
+</head>
+<body>
+<div class="app">
+  <nav><button class="icon-btn" onclick="window.location.href='foodchain_customer_project.html'" aria-label="Back home"><i class="ti ti-arrow-left"></i></button><div class="nav-title"><strong>Settings</strong><span>Profile, delivery, and app preferences</span></div></nav>
+  <section class="hero"><div class="hero-tag">FoodChain Settings</div><h1>Make the customer app yours</h1><p>These are working placeholders for now, ready to connect to real accounts later.</p></section>
+  <section class="section"><h2 class="section-title">Profile</h2><div class="panel"><div class="field"><label>Full Name</label><input value="Elizade Student"/></div><div class="field"><label>Phone Number</label><input value="0800 000 0000"/></div><div class="field"><label>Default Delivery Location</label><input value="Main Hostel Gate"/></div></div></section>
+  <section class="section"><h2 class="section-title">Delivery</h2><div class="panel"><div class="field"><label>Preferred Delivery Speed</label><select><option>Standard delivery</option><option>Priority delivery</option><option>Pickup at cafeteria</option></select></div><div class="field"><label>Delivery Note</label><input value="Call me when rider arrives"/></div></div></section>
+  <section class="section"><h2 class="section-title">Notifications</h2><div class="panel"><div class="row"><div><strong>Order updates</strong><span>Delivery status and rider messages</span></div><button class="toggle on" onclick="toggleSwitch(this)" aria-label="Toggle order updates"></button></div><div class="row"><div><strong>FoodChain promos</strong><span>Token deals and cafeteria offers</span></div><button class="toggle" onclick="toggleSwitch(this)" aria-label="Toggle promos"></button></div><div class="row"><div><strong>Low token reminder</strong><span>Alert when your token balance is low</span></div><button class="toggle on" onclick="toggleSwitch(this)" aria-label="Toggle token reminder"></button></div></div></section>
+  <section class="section"><h2 class="section-title">App Data</h2><div class="panel"><div class="row"><div><strong>Saved cart and favorites</strong><span>Clear local demo data on this browser</span></div></div><button class="danger" onclick="clearDemoData()">Clear Demo Data</button><div class="status" id="status"></div></div></section>
+</div>
+<script>
+function toggleSwitch(button){button.classList.toggle("on");}
+function clearDemoData(){localStorage.removeItem("foodchainCart");localStorage.removeItem("foodchainFavorites");localStorage.removeItem("foodchainTokens");document.getElementById("status").textContent="Demo cart, favorites, and tokens cleared.";}
+</script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,449 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FoodChain Customer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Afacad:wght@400;500;600;700&family=Afacad+Flux:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"/>
+<style>
+:root{
+  --ink:#15110f;
+  --muted:#786f68;
+  --line:#eee5dc;
+  --paper:#fffaf6;
+  --panel:#fff;
+  --brand:#f97316;
+  --brand-dark:#c84d0b;
+  --mint:#dff4e4;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--paper);font-family:"Afacad",Arial,sans-serif;color:var(--ink);}
+button,input{font:inherit;}
+button{border:0;cursor:pointer;}
+.app{width:100%;min-height:100vh;background:linear-gradient(180deg,#fffaf6 0%,#f8f1eb 100%);}
+nav{display:flex;align-items:center;gap:12px;padding:14px 18px;background:rgba(255,255,255,.92);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:100;backdrop-filter:blur(14px);}
+.icon-btn{width:42px;height:42px;border-radius:12px;background:#fff;border:1.5px solid var(--line);display:grid;place-items:center;color:var(--ink);flex:0 0 auto;}
+.icon-btn i{font-size:21px;}
+.search-bar{flex:1;display:flex;align-items:center;gap:8px;background:#f4eee8;border:1px solid #efe3d7;border-radius:24px;padding:10px 14px;min-width:0;}
+.search-bar i{color:var(--muted);}
+.search-bar input{border:0;background:transparent;outline:0;font-size:15px;width:100%;color:var(--ink);}
+.nav-token{display:flex;align-items:center;gap:6px;background:#fff3e8;border:1.5px solid #ffd0a8;border-radius:22px;padding:9px 12px;font-family:"Afacad Flux",Arial,sans-serif;font-size:14px;font-weight:700;color:var(--brand-dark);white-space:nowrap;}
+.nav-cart{position:relative;background:var(--brand);color:#fff;border-radius:50%;width:43px;height:43px;display:grid;place-items:center;flex:0 0 auto;box-shadow:0 8px 18px rgba(249,115,22,.28);}
+.nav-cart i{font-size:21px;}
+.cart-badge{position:absolute;top:-5px;right:-5px;background:var(--ink);color:#fff;font-size:11px;font-weight:700;min-width:19px;height:19px;padding:0 5px;border-radius:999px;display:grid;place-items:center;}
+.hero{margin:18px;background:#17110e;border-radius:22px;padding:20px;display:grid;grid-template-columns:1fr 116px;gap:18px;align-items:center;overflow:hidden;position:relative;}
+.hero:after{content:"";position:absolute;right:-38px;bottom:-56px;width:170px;height:170px;background:rgba(249,115,22,.16);border-radius:50%;}
+.hero-copy{position:relative;z-index:1;}
+.hero-tag{background:var(--brand);color:#fff;font-size:11px;font-family:"Afacad Flux",Arial,sans-serif;font-weight:700;padding:5px 10px;border-radius:999px;display:inline-block;margin-bottom:9px;}
+.hero-title{font-family:"Cal Sans","Afacad",Arial,sans-serif;font-size:25px;color:#fff;line-height:1.05;margin-bottom:7px;letter-spacing:0;}
+.hero-sub{font-size:14px;color:#d1c7bf;}
+.hero-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.meta-pill{display:flex;align-items:center;gap:5px;color:#fff;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:6px 9px;font-size:12px;}
+.hero-img{position:relative;z-index:1;width:116px;height:116px;border-radius:50%;object-fit:cover;border:4px solid var(--brand);background:#2a211c;}
+.section-header{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 10px;}
+.section-title{font-family:"Cal Sans","Afacad",Arial,sans-serif;font-size:21px;color:var(--ink);letter-spacing:0;}
+.see-all{font-family:"Afacad Flux",Arial,sans-serif;font-size:13px;color:var(--brand-dark);font-weight:700;background:transparent;display:flex;align-items:center;gap:3px;}
+.picks-scroll{display:flex;gap:14px;overflow-x:auto;padding:0 18px 18px;scrollbar-width:none;}
+.picks-scroll::-webkit-scrollbar{display:none;}
+.pick-card{width:138px;min-width:138px;background:var(--panel);border-radius:16px;padding:10px;border:1.5px solid var(--line);box-shadow:0 8px 20px rgba(45,31,20,.04);transition:transform .15s,border-color .15s;}
+.pick-card:hover{transform:translateY(-3px);border-color:#ffd0a8;}
+.food-img{width:100%;height:92px;border-radius:11px;object-fit:cover;display:block;background:#241b17;}
+.pick-name{font-family:"Afacad Flux",Arial,sans-serif;font-size:14px;font-weight:700;color:var(--ink);margin-top:10px;}
+.pick-footer{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-top:4px;}
+.pick-price{font-size:14px;color:var(--brand-dark);font-weight:700;}
+.pick-vendor{font-size:11px;color:var(--muted);}
+.small-add{width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;flex:0 0 auto;}
+.combos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;padding:0 18px 96px;}
+.combo-card{background:var(--panel);border-radius:18px;border:1.5px solid var(--line);overflow:hidden;box-shadow:0 8px 20px rgba(45,31,20,.04);transition:transform .15s,border-color .15s;}
+.combo-card:hover{transform:translateY(-3px);border-color:#ffd0a8;}
+.combo-img{width:100%;height:128px;object-fit:cover;display:block;background:#241b17;}
+.combo-body{padding:12px;}
+.combo-name{font-family:"Cal Sans","Afacad",Arial,sans-serif;font-size:16px;color:var(--ink);letter-spacing:0;}
+.combo-desc{font-size:12px;color:var(--muted);margin:4px 0 10px;line-height:1.35;min-height:32px;}
+.combo-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.combo-price{font-family:"Afacad Flux",Arial,sans-serif;font-size:15px;font-weight:800;color:var(--brand-dark);}
+.combo-add{background:var(--brand);color:#fff;border-radius:999px;padding:7px 12px;font-family:"Afacad Flux",Arial,sans-serif;font-size:12px;font-weight:700;white-space:nowrap;}
+.food-heart{position:absolute;top:9px;right:9px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.92);border:1px solid var(--line);display:grid;place-items:center;color:var(--muted);box-shadow:0 6px 14px rgba(0,0,0,.08);}
+.food-heart.saved{background:#fff0e6;color:var(--brand);}
+.pick-card,.combo-card{position:relative;}
+.bottom-bar{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:calc(100% - 28px);background:#17110e;color:#fff;border-radius:22px;padding:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 18px 40px rgba(0,0,0,.24);z-index:90;}
+.cart-copy{padding-left:8px;}
+.cart-copy strong{display:block;font-family:"Afacad Flux",Arial,sans-serif;font-size:14px;}
+.cart-copy span{display:block;color:#cfc4bb;font-size:12px;}
+.checkout{background:#fff;color:var(--ink);border-radius:16px;padding:10px 14px;font-family:"Afacad Flux",Arial,sans-serif;font-weight:800;white-space:nowrap;}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s;}
+.overlay.open{opacity:1;pointer-events:all;}
+.drawer{position:fixed;left:-292px;top:0;height:100%;width:278px;background:#fff;z-index:201;transition:left .25s;padding:24px 20px;box-shadow:4px 0 24px rgba(0,0,0,.12);}
+.drawer.open{left:0;}
+.drawer-logo{font-family:"Cal Sans","Afacad",Arial,sans-serif;font-size:24px;color:var(--ink);margin-bottom:6px;}
+.drawer-logo span{color:var(--brand);}
+.drawer-sub{font-size:13px;color:var(--muted);margin-bottom:28px;}
+.drawer-item{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #f3ece5;font-family:"Afacad Flux",Arial,sans-serif;font-size:15px;color:#352e29;background:transparent;width:100%;text-align:left;}
+.drawer-item i{font-size:20px;color:var(--brand);}
+.drawer-item .chevron{margin-left:auto;color:var(--muted);font-size:18px;transition:transform .2s;}
+.drawer-group.open .chevron{transform:rotate(180deg);}
+.cafeteria-list{display:none;padding:6px 0 12px 32px;border-bottom:1px solid #f3ece5;}
+.drawer-group.open .cafeteria-list{display:grid;gap:9px;}
+.cafeteria-option{background:#fff7ef;border:1px solid #f2ddca;border-radius:12px;padding:10px 11px;text-align:left;color:var(--ink);}
+.cafeteria-option strong{display:block;font-family:"Afacad Flux",Arial,sans-serif;font-size:14px;margin-bottom:2px;}
+.cafeteria-option span{display:block;color:var(--muted);font-size:12px;line-height:1.25;}
+.drawer-close{position:absolute;top:14px;right:14px;}
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.28);z-index:210;opacity:0;pointer-events:none;transition:opacity .25s;}
+.cart-overlay.open{opacity:1;pointer-events:all;}
+.cart-pane{position:fixed;right:-390px;top:0;height:100%;width:min(370px,92vw);background:#fff;z-index:211;transition:right .25s;padding:20px;box-shadow:-8px 0 28px rgba(0,0,0,.14);display:flex;flex-direction:column;}
+.cart-pane.open{right:0;}
+.cart-pane-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px;}
+.cart-pane-title{font-family:"Cal Sans","Afacad",Arial,sans-serif;font-size:23px;letter-spacing:0;}
+.cart-pane-sub{color:var(--muted);font-size:13px;margin-top:2px;}
+.cart-items{display:grid;gap:10px;overflow:auto;padding-right:2px;flex:1;}
+.cart-line{border:1.5px solid var(--line);border-radius:15px;padding:11px;background:#fffaf6;}
+.cart-line-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+.cart-line-name{font-family:"Afacad Flux",Arial,sans-serif;font-size:15px;font-weight:800;}
+.cart-line-cafe{display:flex;align-items:center;gap:5px;color:var(--muted);font-size:12px;margin-top:4px;}
+.cart-line-price{font-family:"Afacad Flux",Arial,sans-serif;color:var(--brand-dark);font-weight:800;white-space:nowrap;}
+.cart-line-actions{display:flex;align-items:center;gap:8px;margin-top:10px;}
+.qty-pill{background:#17110e;color:#fff;border-radius:999px;padding:4px 9px;font-family:"Afacad Flux",Arial,sans-serif;font-size:12px;font-weight:800;}
+.minus-btn{width:28px;height:28px;border-radius:50%;background:#fff;border:1.5px solid #efc39f;color:var(--brand-dark);display:grid;place-items:center;}
+.cart-empty{border:1.5px dashed #e7d7c8;border-radius:16px;padding:24px;text-align:center;color:var(--muted);background:#fffaf6;}
+.cart-total-box{border-top:1px solid var(--line);padding-top:14px;margin-top:14px;}
+.cart-total-row{display:flex;align-items:center;justify-content:space-between;font-family:"Afacad Flux",Arial,sans-serif;font-size:18px;font-weight:800;}
+.cart-note{color:var(--muted);font-size:12px;margin-top:4px;}
+.empty-state{display:none;margin:0 18px 96px;padding:26px;border:1.5px dashed #e7d7c8;border-radius:18px;text-align:center;color:var(--muted);background:rgba(255,255,255,.58);}
+.empty-state strong{display:block;color:var(--ink);font-family:"Cal Sans","Afacad",Arial,sans-serif;font-size:18px;margin-bottom:4px;}
+@media (max-width:560px){
+  nav{gap:9px;padding:12px;}
+  .nav-token{display:none;}
+  .hero{grid-template-columns:1fr 96px;margin:14px;padding:17px;border-radius:20px;}
+  .hero-title{font-size:22px;}
+  .hero-img{width:96px;height:96px;}
+  .combos-grid{grid-template-columns:1fr;}
+  .combo-img{height:150px;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <aside class="drawer" id="drawer" aria-label="Menu">
+    <button class="icon-btn drawer-close" onclick="closeDrawer()" aria-label="Close menu"><i class="ti ti-x"></i></button>
+    <div class="drawer-logo">Food<span>Chain</span></div>
+    <div class="drawer-sub">Elizade University Delivery</div>
+    <button class="drawer-item"><i class="ti ti-home"></i> Home</button>
+    <button class="drawer-item" onclick="goToPage('topup.html')"><i class="ti ti-wallet"></i> Topup</button>
+    <div class="drawer-group" id="cafeteriaGroup">
+      <button class="drawer-item" onclick="toggleCafeterias()"><i class="ti ti-building-store"></i> Cafeterias <i class="ti ti-chevron-down chevron"></i></button>
+      <div class="cafeteria-list">
+        <button class="cafeteria-option" onclick="goToPage('foodchain_customer_project.html')">
+          <strong>DunnKayce</strong>
+          <span>Open 8:00 AM-8:30 PM - Rice bowls, chicken, snacks - 20-35 mins</span>
+        </button>
+        <button class="cafeteria-option" onclick="goToPage('grills.html')">
+          <strong>Grills</strong>
+          <span>Open 10:00 AM-10:00 PM - Suya, bread, indomie, sausage - 15-30 mins</span>
+        </button>
+        <button class="cafeteria-option" onclick="goToPage('laughter_kitchen.html')">
+          <strong>Laughter Kitchen</strong>
+          <span>Open 9:00 AM-9:00 PM - Swallow meals, soups, quick combos - 25-40 mins</span>
+        </button>
+      </div>
+    </div>
+    <button class="drawer-item" onclick="goToPage('orders.html')"><i class="ti ti-receipt"></i> My Orders</button>
+    <button class="drawer-item" onclick="goToPage('favorites.html')"><i class="ti ti-heart"></i> Favorites</button>
+    <button class="drawer-item" onclick="goToPage('settings.html')"><i class="ti ti-settings"></i> Settings</button>
+    <button class="drawer-item" onclick="handleLogout()" style="color:var(--brand-dark);border-bottom:0;"><i class="ti ti-logout"></i> Log Out</button>
+  </aside>
+  <aside class="cart-pane" id="cartPane" aria-label="Cart">
+    <div class="cart-pane-head">
+      <div>
+        <div class="cart-pane-title">Your Cart</div>
+        <div class="cart-pane-sub">Items grouped by cafeteria</div>
+      </div>
+      <button class="icon-btn" onclick="closeCart()" aria-label="Close cart"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-total-box">
+      <div class="cart-total-row"><span>Total</span><span id="cartPaneTotal">â‚¦0</span></div>
+      <div class="cart-note">Delivery and token payment will be handled at checkout.</div>
+      <button class="primary checkout" style="width:100%;margin-top:12px;">Checkout</button>
+    </div>
+  </aside>
+
+  <nav>
+    <button class="icon-btn" onclick="openDrawer()" aria-label="Open menu"><i class="ti ti-menu-2"></i></button>
+    <label class="search-bar">
+      <i class="ti ti-search" aria-hidden="true"></i>
+      <input id="searchInput" type="search" placeholder="Search food, combos, cafeterias..."/>
+    </label>
+    <div class="nav-token"><i class="ti ti-coin" aria-hidden="true"></i> <span id="tokenBalance">0 Tokens</span></div>
+    <button class="nav-cart" onclick="openCart()" aria-label="Open cart"><i class="ti ti-shopping-cart" aria-hidden="true"></i><span class="cart-badge" id="cartBadge">0</span></button>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="hero-tag">Now Ordering From</div>
+      <h1 class="hero-title">Dunnkayce<br/>Cafeteria</h1>
+      <p class="hero-sub">Est. delivery: 20-35 mins</p>
+      <div class="hero-meta">
+        <span class="meta-pill"><i class="ti ti-star-filled"></i> 4.8</span>
+        <span class="meta-pill"><i class="ti ti-bike"></i> Campus delivery</span>
+      </div>
+    </div>
+    <img class="hero-img" alt="Bowl of jollof rice" src="assets/jollof-rice.jpg"/>
+  </section>
+
+  <section id="dunnkayce">
+    <div class="section-header">
+      <h2 class="section-title">Regular Picks</h2>
+      <button class="see-all">See all <i class="ti ti-arrow-right"></i></button>
+    </div>
+    <div class="picks-scroll" id="picks"></div>
+  </section>
+
+  <section>
+    <div class="section-header">
+      <h2 class="section-title">Common Food Combos</h2>
+      <button class="see-all">See all <i class="ti ti-arrow-right"></i></button>
+    </div>
+    <div class="combos-grid" id="combos"></div>
+    <div class="empty-state" id="emptyState">
+      <strong>No matches found</strong>
+      Try another meal, combo, or cafeteria.
+    </div>
+  </section>
+</div>
+
+<div class="bottom-bar" id="bottomBar">
+  <div class="cart-copy">
+    <strong id="cartSummary">0 items in cart</strong>
+    <span id="cartTotal">Total â‚¦0</span>
+  </div>
+  <button class="checkout" onclick="openCart()">Checkout</button>
+</div>
+
+<script>
+const menu = [
+  { type:"pick", name:"Jollof Rice", price:450, unit:"per scoop", img:"assets/jollof-rice.jpg" },
+  { type:"pick", name:"Crispy Chicken", price:2000, unit:"per piece", img:"assets/fried-chicken.jpg" },
+  { type:"pick", name:"Fried Rice", price:500, unit:"per scoop", img:"assets/fried-rice.jpg" },
+  { type:"pick", name:"Shawarma", price:3500, unit:"per piece", img:"assets/shawarma.jpg" },
+  { type:"pick", name:"Jollof + Chicken", price:2450, unit:"combo", img:"assets/jollof-chicken.jpg" },
+  { type:"combo", name:"Jollof + Chicken", desc:"Smoky jollof with crispy chicken.", price:2450, img:"assets/jollof-chicken.jpg" },
+  { type:"combo", name:"Eba + Egusi", desc:"A proper Nigerian swallow meal.", price:1800, img:"https://upload.wikimedia.org/wikipedia/commons/2/2c/Egusi_soup_and_Eba.jpg" },
+  { type:"combo", name:"Fried Rice + Meat", desc:"Fried rice with peppered assorted.", price:1300, img:"assets/fried-rice.jpg" },
+  { type:"combo", name:"Shawarma + Drink", desc:"Full shawarma with a chilled drink.", price:4000, img:"assets/shawarma.jpg" },
+  { type:"combo", name:"Chicken + Salad", desc:"Crispy chicken with fresh salad.", price:2350, img:"assets/fried-chicken.jpg" },
+  { type:"combo", name:"Amala + Ewedu", desc:"Smooth amala with ewedu and gbegiri.", price:1600, img:"https://upload.wikimedia.org/wikipedia/commons/8/86/Amala%2C_ewedu_and_assorted_meat.jpg" }
+];
+
+const CAFE_NAME = "DunnKayce";
+let cartCount = 0;
+let cartTotal = 0;
+let cartItems = [];
+
+function formatNaira(amount){
+  return new Intl.NumberFormat("en-NG", { style:"currency", currency:"NGN", maximumFractionDigits:0 }).format(amount);
+}
+
+function loadCart(){
+  const saved = JSON.parse(localStorage.getItem("foodchainCart") || '{"count":0,"total":0}');
+  cartItems = (saved.items || []).map(item => ({ ...item, qty:item.qty || 1 }));
+  cartCount = cartItems.reduce((sum,item) => sum + item.qty, 0);
+  cartTotal = cartItems.reduce((sum,item) => sum + (item.price * item.qty), 0);
+}
+
+function saveCart(){
+  localStorage.setItem("foodchainCart", JSON.stringify({ count:cartCount, total:cartTotal, items:cartItems }));
+}
+
+function loadTokens(){
+  const tokens = Number(localStorage.getItem("foodchainTokens") || 0);
+  document.getElementById("tokenBalance").textContent = `${tokens} ${tokens === 1 ? "Token" : "Tokens"}`;
+}
+
+function getFavorites(){
+  return JSON.parse(localStorage.getItem("foodchainFavorites") || "[]");
+}
+
+function saveFavorites(items){
+  localStorage.setItem("foodchainFavorites", JSON.stringify(items));
+}
+
+function toggleFavorite(itemName){
+  const item = menu.find(food => food.name === itemName);
+  if (!item) return;
+  const favorites = getFavorites();
+  const key = `${CAFE_NAME}:${item.name}`;
+  const existingIndex = favorites.findIndex(food => food.key === key);
+  if (existingIndex >= 0) favorites.splice(existingIndex, 1);
+  else favorites.push({ key, cafe:CAFE_NAME, name:item.name, price:item.price, img:item.img, desc:item.desc || item.unit || "" });
+  saveFavorites(favorites);
+  renderFavoriteButtons();
+}
+
+function renderFavoriteButtons(){
+  const favorites = getFavorites();
+  document.querySelectorAll(".pick-card,.combo-card").forEach(card => {
+    const name = card.querySelector(".pick-name,.combo-name")?.textContent.trim();
+    if (!name) return;
+    const saved = favorites.some(item => item.key === `${CAFE_NAME}:${name}`);
+    let button = card.querySelector(".food-heart");
+    if (!button) {
+      button = document.createElement("button");
+      button.className = "food-heart";
+      card.appendChild(button);
+    }
+    button.classList.toggle("saved", saved);
+    button.innerHTML = `<i class="ti ${saved ? "ti-heart-filled" : "ti-heart"}"></i>`;
+    button.setAttribute("aria-label", `${saved ? "Remove" : "Add"} ${name} favorite`);
+    button.onclick = event => { event.stopPropagation(); toggleFavorite(name); };
+  });
+}
+
+function openDrawer(){
+  document.getElementById("drawer").classList.add("open");
+  document.getElementById("overlay").classList.add("open");
+}
+
+function closeDrawer(){
+  document.getElementById("drawer").classList.remove("open");
+  document.getElementById("overlay").classList.remove("open");
+}
+
+function openCart(){
+  closeDrawer();
+  renderCartPane();
+  document.getElementById("cartPane").classList.add("open");
+  document.getElementById("cartOverlay").classList.add("open");
+}
+
+function closeCart(){
+  document.getElementById("cartPane").classList.remove("open");
+  document.getElementById("cartOverlay").classList.remove("open");
+}
+
+function toggleCafeterias(){
+  document.getElementById("cafeteriaGroup").classList.toggle("open");
+}
+
+function goToPage(page){
+  window.location.href = page;
+}
+
+function handleLogout(){
+  localStorage.removeItem("foodchainCart");
+  localStorage.removeItem("foodchainFavorites");
+  localStorage.removeItem("foodchainTokens");
+  localStorage.removeItem("foodchainUserRole");
+  localStorage.removeItem("foodchainUserEmail");
+  window.location.href = "/";
+}
+
+function addToCart(item){
+  const existing = cartItems.find(cartItem => cartItem.name === item.name && cartItem.cafe === CAFE_NAME);
+  if (existing) existing.qty += 1;
+  else cartItems.push({ name:item.name, price:item.price, cafe:CAFE_NAME, qty:1 });
+  recalcCart();
+  saveCart();
+  renderCart();
+}
+
+function removeOne(index){
+  if (!cartItems[index]) return;
+  cartItems[index].qty -= 1;
+  if (cartItems[index].qty <= 0) cartItems.splice(index,1);
+  recalcCart();
+  saveCart();
+  renderCart();
+}
+
+function recalcCart(){
+  cartCount = cartItems.reduce((sum,item) => sum + item.qty, 0);
+  cartTotal = cartItems.reduce((sum,item) => sum + (item.price * item.qty), 0);
+}
+
+function renderCart(){
+  document.getElementById("cartBadge").textContent = cartCount;
+  document.getElementById("cartSummary").textContent = `${cartCount} ${cartCount === 1 ? "item" : "items"} in cart`;
+  document.getElementById("cartTotal").textContent = `Total ${formatNaira(cartTotal)}`;
+  renderCartPane();
+}
+
+function renderCartPane(){
+  const list = document.getElementById("cartItems");
+  document.getElementById("cartPaneTotal").textContent = formatNaira(cartTotal);
+  if (!cartItems.length) {
+    list.innerHTML = `<div class="cart-empty"><strong>Your cart is empty</strong><br/>Add an item from any cafeteria.</div>`;
+    return;
+  }
+  list.innerHTML = cartItems.map((item,index) => `
+    <div class="cart-line">
+      <div class="cart-line-top">
+        <div>
+          <div class="cart-line-name">${item.name}</div>
+          <div class="cart-line-cafe"><i class="ti ti-building-store"></i> ${item.cafe}</div>
+        </div>
+        <div class="cart-line-price">${formatNaira(item.price * item.qty)}</div>
+      </div>
+      <div class="cart-line-actions">
+        <button class="minus-btn" onclick="removeOne(${index})" aria-label="Remove one ${item.name}"><i class="ti ti-minus"></i></button>
+        <span class="qty-pill">x${item.qty}</span>
+      </div>
+    </div>
+  `).join("");
+}
+
+function renderMenu(query = ""){
+  const term = query.trim().toLowerCase();
+  const filtered = menu.filter(item => item.name.toLowerCase().includes(term) || (item.desc || "").toLowerCase().includes(term));
+  const picks = filtered.filter(item => item.type === "pick");
+  const combos = filtered.filter(item => item.type === "combo");
+
+  document.getElementById("picks").innerHTML = picks.map((item, index) => `
+    <article class="pick-card">
+      <img class="food-img" src="${item.img}" alt="${item.name}"/>
+      <div class="pick-name">${item.name}</div>
+      <div class="pick-footer">
+        <div>
+          <div class="pick-price">${formatNaira(item.price)}</div>
+          <div class="pick-vendor">${item.unit}</div>
+        </div>
+        <button class="small-add" onclick="addToCart(menu[${menu.indexOf(item)}])" aria-label="Add ${item.name}"><i class="ti ti-plus"></i></button>
+      </div>
+    </article>
+  `).join("");
+
+  document.getElementById("combos").innerHTML = combos.map(item => `
+    <article class="combo-card">
+      <img class="combo-img" src="${item.img}" alt="${item.name}"/>
+      <div class="combo-body">
+        <h3 class="combo-name">${item.name}</h3>
+        <p class="combo-desc">${item.desc}</p>
+        <div class="combo-footer">
+          <div class="combo-price">${formatNaira(item.price)}</div>
+          <button class="combo-add" onclick="addToCart(menu[${menu.indexOf(item)}])">+ Add</button>
+        </div>
+      </div>
+    </article>
+  `).join("");
+
+  document.getElementById("emptyState").style.display = filtered.length ? "none" : "block";
+  renderFavoriteButtons();
+}
+
+document.getElementById("searchInput").addEventListener("input", event => renderMenu(event.target.value));
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") { closeDrawer(); closeCart(); }
+});
+
+loadCart();
+loadTokens();
+renderMenu();
+renderCart();
+</script>
+</body>
+</html>
+
+
+

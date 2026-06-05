@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FoodChain Signup</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: Inter, system-ui, sans-serif;
+      background: #f9f3ee;
+      color: #1f1b18;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; }
+    .card { width: min(520px,100%); background: #fff; border-radius: 24px; padding: 28px; box-shadow: 0 24px 60px rgba(17,17,17,.09); border: 1px solid #f1e7dd; }
+    h1 { font-size: clamp(1.8rem,2.5vw,2.6rem); margin-bottom: 8px; }
+    p { margin: 0 0 20px; color: #615852; line-height: 1.6; }
+    .form-row { display: grid; gap: 14px; margin-bottom: 20px; }
+    label { display: grid; gap: 7px; font-size: 0.95rem; color: #51463f; }
+    input { width: 100%; border: 1.5px solid #e8ded6; border-radius: 14px; padding: 14px 16px; font-size: 1rem; color: #1f1b18; background: #fff; }
+    input:focus { outline: none; border-color: #f97316; box-shadow: 0 0 0 4px rgba(249,115,22,.12); }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 18px; border-radius: 14px; border: none; font-size: 1rem; font-weight: 700; cursor: pointer; }
+    .button-primary { background: #f97316; color: #fff; }
+    .button-secondary { background: #fff4df; color: #c2560a; border: 1px solid #f7dcc3; }
+    .hidden { display: none !important; }
+    .choice-panel { display: none; gap: 14px; }
+    .choice-panel.active { display: grid; }
+    .choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .choice-card { padding: 18px; border-radius: 18px; border: 1.5px solid #e8ded6; background: #fff8f2; cursor: pointer; transition: transform .18s, border-color .18s; }
+    .choice-card:hover { transform: translateY(-2px); border-color: #f9c8a8; }
+    .choice-card strong { display: block; margin-bottom: 8px; font-size: 1rem; }
+    .choice-card span { color: #615852; font-size: 0.95rem; line-height: 1.5; }
+    .notice { margin-top: 18px; color: #7f6d64; font-size: 0.92rem; }
+    .status-line { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 20px; padding: 16px 18px; border-radius: 18px; background: #fff7ef; border: 1px solid #f9dcc5; }
+    .status-line strong { color: #c2560a; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Create your FoodChain account</h1>
+    <p>Sign up and then choose whether you want to continue to the customer experience or the admin dashboard.</p>
+
+    <form id="signupForm">
+      <div class="form-row">
+        <label>Email address
+          <input id="email" type="email" placeholder="you@example.com" />
+        </label>
+        <label>Password
+          <input id="password" type="password" placeholder="Any password will work" />
+        </label>
+      </div>
+      <button type="submit" class="button button-primary">Continue</button>
+    </form>
+
+    <div class="choice-panel" id="choicePanel">
+      <div class="status-line">
+        <span>Signup complete. Choose your section now.</span>
+        <strong id="userEmailPreview"></strong>
+      </div>
+      <div class="choices">
+        <button class="choice-card button-secondary" id="customerBtn" type="button">
+          <strong>Customer Section</strong>
+          <span>Go to the FoodChain customer ordering app.</span>
+        </button>
+        <button class="choice-card button-secondary" id="adminBtn" type="button">
+          <strong>Admin Section</strong>
+          <span>Go to the FoodChain admin dashboard.</span>
+        </button>
+      </div>
+    </div>
+
+    <p class="notice">This page is a lightweight selection step. When you connect Supabase, wire your signup completion into this role choice screen and redirect accordingly.</p>
+  </div>
+
+  <script>
+    const signupForm = document.getElementById('signupForm');
+    const choicePanel = document.getElementById('choicePanel');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const userEmailPreview = document.getElementById('userEmailPreview');
+    const customerBtn = document.getElementById('customerBtn');
+    const adminBtn = document.getElementById('adminBtn');
+
+    signupForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const email = emailInput.value.trim() || 'demo@foodchain.local';
+      localStorage.setItem('foodchainUserEmail', email);
+      localStorage.removeItem('foodchainUserRole');
+      userEmailPreview.textContent = email;
+      signupForm.classList.add('hidden');
+      choicePanel.classList.add('active');
+    });
+
+    customerBtn.addEventListener('click', () => {
+      localStorage.setItem('foodchainUserRole', 'customer');
+      window.location.href = 'customer/work/foodchain-customer/index.html';
+    });
+
+    adminBtn.addEventListener('click', () => {
+      localStorage.setItem('foodchainUserRole', 'admin');
+      window.location.href = 'Admin/2026-06-04/files-mentioned-by-the-user-foodchain/outputs/foodchain_admin_polished.html';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My Orders - FoodChain</title>
+<link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Afacad:wght@400;500;600;700&family=Afacad+Flux:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"/>
+<style>
+:root{--ink:#15110f;--muted:#786f68;--line:#eee5dc;--paper:#fffaf6;--brand:#f97316;--brand-dark:#c84d0b;}*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--paper);font-family:"Afacad",Arial,sans-serif;color:var(--ink);}button{border:0;cursor:pointer;font:inherit}.app{width:100%;min-height:100vh;background:linear-gradient(180deg,#fffaf6 0%,#f8f1eb 100%);padding-bottom:28px;}nav{display:flex;align-items:center;gap:12px;padding:14px 18px;background:rgba(255,255,255,.92);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:100;backdrop-filter:blur(14px);}.icon-btn{width:42px;height:42px;border-radius:12px;background:#fff;border:1.5px solid var(--line);display:grid;place-items:center;color:var(--ink);flex:0 0 auto;}.nav-title{flex:1}.nav-title strong{display:block;font-family:"Cal Sans","Afacad",Arial,sans-serif;font-size:18px;}.nav-title span{display:block;color:var(--muted);font-size:12px;}.hero{margin:18px;background:#17110e;border-radius:22px;padding:20px;color:#fff;}.hero-tag{background:var(--brand);font-size:11px;font-family:"Afacad Flux",Arial,sans-serif;font-weight:700;padding:5px 10px;border-radius:999px;display:inline-block;margin-bottom:9px;}.hero h1{font-family:"Cal Sans","Afacad",Arial,sans-serif;font-size:28px;letter-spacing:0;}.hero p{color:#d1c7bf;margin-top:6px;font-size:14px;}.section{padding:0 18px 18px;}.section-title{font-family:"Cal Sans","Afacad",Arial,sans-serif;font-size:21px;margin:10px 0 10px;}.orders{display:grid;gap:10px;}.order-card{background:#fff;border:1.5px solid var(--line);border-radius:17px;padding:13px;box-shadow:0 8px 20px rgba(45,31,20,.04);}.order-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}.order-name{font-family:"Afacad Flux",Arial,sans-serif;font-size:16px;font-weight:800;}.order-meta{color:var(--muted);font-size:12px;margin-top:3px;}.order-total{font-family:"Afacad Flux",Arial,sans-serif;color:var(--brand-dark);font-weight:800;white-space:nowrap;}.status{display:inline-flex;margin-top:9px;background:#fff3e8;color:var(--brand-dark);border:1px solid #ffd0a8;border-radius:999px;padding:4px 9px;font-size:12px;font-family:"Afacad Flux",Arial,sans-serif;font-weight:700;}
+</style>
+</head>
+<body>
+<div class="app">
+  <nav><button class="icon-btn" onclick="window.location.href='index.html'" aria-label="Back home"><i class="ti ti-arrow-left"></i></button><div class="nav-title"><strong>My Orders</strong><span>History by day, week, and month</span></div></nav>
+  <section class="hero"><div class="hero-tag">Order History</div><h1>Track what you have ordered</h1><p>Placeholder history for now. Real completed orders can feed in once checkout is finished.</p></section>
+  <section class="section"><h2 class="section-title">Today</h2><div class="orders" id="todayOrders"></div></section>
+  <section class="section"><h2 class="section-title">This Week</h2><div class="orders" id="weekOrders"></div></section>
+  <section class="section"><h2 class="section-title">This Month</h2><div class="orders" id="monthOrders"></div></section>
+</div>
+<script>
+const orders={
+  today:[{name:"Beef Suya x2",cafe:"Grills",time:"Today, 2:15 PM",total:3000,status:"Delivered"},{name:"Jollof + Chicken",cafe:"DunnKayce",time:"Today, 12:40 PM",total:2450,status:"Delivered"}],
+  week:[{name:"Amala + Ewedu",cafe:"Laughter Kitchen",time:"Tuesday",total:1800,status:"Delivered"},{name:"Indomie + Egg + Sausage",cafe:"Grills",time:"Monday",total:2500,status:"Delivered"}],
+  month:[{name:"Fried Rice + Meat",cafe:"DunnKayce",time:"May 28",total:1300,status:"Delivered"},{name:"White Rice + Stew",cafe:"Laughter Kitchen",time:"May 22",total:2200,status:"Delivered"}]
+};
+function formatNaira(amount){return new Intl.NumberFormat("en-NG",{style:"currency",currency:"NGN",maximumFractionDigits:0}).format(amount);}
+function render(target,items){document.getElementById(target).innerHTML=items.map(order=>`<article class="order-card"><div class="order-top"><div><div class="order-name">${order.name}</div><div class="order-meta"><i class="ti ti-building-store"></i> ${order.cafe} - ${order.time}</div></div><div class="order-total">${formatNaira(order.total)}</div></div><span class="status">${order.status}</span></article>`).join("");}
+render("todayOrders",orders.today);render("weekOrders",orders.week);render("monthOrders",orders.month);
+</script>
+</body>
+</html>
+
+
+

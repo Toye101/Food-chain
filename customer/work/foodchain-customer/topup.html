@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Topup - FoodChain</title>
+<link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Afacad:wght@400;500;600;700&family=Afacad+Flux:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"/>
+<style>
+:root{--ink:#15110f;--muted:#786f68;--line:#eee5dc;--paper:#fffaf6;--panel:#fff;--brand:#f97316;--brand-dark:#c84d0b;}*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--paper);font-family:"Afacad",Arial,sans-serif;color:var(--ink);}button,input{font:inherit;}button{border:0;cursor:pointer;}.app{width:100%;min-height:100vh;background:linear-gradient(180deg,#fffaf6 0%,#f8f1eb 100%);padding-bottom:28px;}
+nav{display:flex;align-items:center;gap:12px;padding:14px 18px;background:rgba(255,255,255,.92);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:100;backdrop-filter:blur(14px);}.icon-btn{width:42px;height:42px;border-radius:12px;background:#fff;border:1.5px solid var(--line);display:grid;place-items:center;color:var(--ink);flex:0 0 auto;}.icon-btn i{font-size:21px;}.nav-title{flex:1;min-width:0;}.nav-title strong{display:block;font-family:"Cal Sans","Afacad",Arial,sans-serif;font-size:18px;}.nav-title span{display:block;color:var(--muted);font-size:12px;}.nav-token{display:flex;align-items:center;gap:6px;background:#fff3e8;border:1.5px solid #ffd0a8;border-radius:22px;padding:9px 12px;font-family:"Afacad Flux",Arial,sans-serif;font-size:14px;font-weight:700;color:var(--brand-dark);white-space:nowrap;}
+.hero{margin:18px;background:#17110e;border-radius:22px;padding:20px;color:#fff;overflow:hidden;position:relative;}.hero:after{content:"";position:absolute;right:-42px;bottom:-70px;width:190px;height:190px;background:rgba(249,115,22,.16);border-radius:50%;}.hero-tag{background:var(--brand);font-size:11px;font-family:"Afacad Flux",Arial,sans-serif;font-weight:700;padding:5px 10px;border-radius:999px;display:inline-block;margin-bottom:9px;}.hero h1{position:relative;z-index:1;font-family:"Cal Sans","Afacad",Arial,sans-serif;font-size:28px;letter-spacing:0;}.hero p{position:relative;z-index:1;color:#d1c7bf;margin-top:6px;font-size:14px;}.rate{display:inline-flex;align-items:center;gap:6px;margin-top:14px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:7px 10px;font-size:12px;}
+.section{padding:0 18px 16px;}.section-title{font-family:"Cal Sans","Afacad",Arial,sans-serif;font-size:21px;margin:8px 0 10px;letter-spacing:0;}.packages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}.package{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:13px 10px;text-align:left;}.package.active{border-color:var(--brand);box-shadow:0 8px 20px rgba(249,115,22,.12);}.package strong{display:block;font-family:"Afacad Flux",Arial,sans-serif;font-size:17px;}.package span{display:block;color:var(--muted);font-size:12px;margin-top:2px;}.panel{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 8px 20px rgba(45,31,20,.04);}.methods{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}.method{display:flex;align-items:center;justify-content:center;gap:7px;border-radius:14px;padding:10px;background:#f7efe8;color:var(--muted);font-family:"Afacad Flux",Arial,sans-serif;font-weight:700;}.method.active{background:var(--brand);color:#fff;}.field{display:grid;gap:5px;margin-top:10px;}.field label{font-family:"Afacad Flux",Arial,sans-serif;font-size:13px;color:#4a4039;}.field input{width:100%;border:1.5px solid var(--line);background:#fffaf6;border-radius:13px;padding:11px 12px;outline:0;color:var(--ink);}.transfer-box{display:none;background:#fff7ef;border:1.5px dashed #efc39f;border-radius:14px;padding:12px;color:#4a4039;font-size:13px;line-height:1.45;}.transfer-box strong{display:block;font-family:"Afacad Flux",Arial,sans-serif;color:var(--ink);margin-bottom:4px;}.summary{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;padding:12px;border-radius:14px;background:#17110e;color:#fff;}.summary span{display:block;color:#d1c7bf;font-size:12px;}.summary strong{font-family:"Afacad Flux",Arial,sans-serif;font-size:18px;}.primary{width:100%;margin-top:12px;background:var(--brand);color:#fff;border-radius:16px;padding:12px 14px;font-family:"Afacad Flux",Arial,sans-serif;font-weight:800;}.status{min-height:20px;margin-top:10px;color:var(--brand-dark);font-family:"Afacad Flux",Arial,sans-serif;font-size:13px;}@media(max-width:560px){nav{padding:12px;}.nav-token{display:none;}.packages{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="app">
+  <nav>
+    <button class="icon-btn" onclick="window.location.href='index.html'" aria-label="Back home"><i class="ti ti-arrow-left"></i></button>
+    <div class="nav-title"><strong>Topup Tokens</strong><span>Pay by card or transfer</span></div>
+    <div class="nav-token"><i class="ti ti-coin"></i> <span id="tokenBalance">0 Tokens</span></div>
+  </nav>
+  <section class="hero">
+    <div class="hero-tag">FoodChain Wallet</div>
+    <h1>Top up tokens for faster checkout</h1>
+    <p>1 Token equals â‚¦500. Use tokens later to pay for food and delivery.</p>
+    <div class="rate"><i class="ti ti-coin"></i> 1 Token = â‚¦500</div>
+  </section>
+  <section class="section">
+    <h2 class="section-title">Choose Amount</h2>
+    <div class="packages">
+      <button class="package active" onclick="selectAmount(2500,this)"><strong>5 Tokens</strong><span>â‚¦2,500</span></button>
+      <button class="package" onclick="selectAmount(5000,this)"><strong>10 Tokens</strong><span>â‚¦5,000</span></button>
+      <button class="package" onclick="selectAmount(10000,this)"><strong>20 Tokens</strong><span>â‚¦10,000</span></button>
+    </div>
+  </section>
+  <section class="section">
+    <h2 class="section-title">Payment Method</h2>
+    <div class="panel">
+      <div class="methods">
+        <button class="method active" id="cardMethod" onclick="setMethod('card')"><i class="ti ti-credit-card"></i> Card</button>
+        <button class="method" id="transferMethod" onclick="setMethod('transfer')"><i class="ti ti-building-bank"></i> Transfer</button>
+      </div>
+      <div id="cardForm">
+        <div class="field"><label>Card Number</label><input placeholder="0000 0000 0000 0000"/></div>
+        <div class="field"><label>Name on Card</label><input placeholder="Student Name"/></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div class="field"><label>Expiry</label><input placeholder="MM/YY"/></div>
+          <div class="field"><label>CVV</label><input placeholder="123"/></div>
+        </div>
+      </div>
+      <div class="transfer-box" id="transferBox">
+        <strong>Transfer Details</strong>
+        Bank: FoodChain Microfinance<br/>
+        Account Number: 0123456789<br/>
+        Account Name: FoodChain Tokens<br/>
+        Use your matric number as narration.
+      </div>
+      <div class="summary">
+        <div><span>You will receive</span><strong id="tokensOut">5 Tokens</strong></div>
+        <div><span>You pay</span><strong id="amountOut">â‚¦2,500</strong></div>
+      </div>
+      <button class="primary" onclick="completeTopup()">Topup Tokens</button>
+      <div class="status" id="status"></div>
+    </div>
+  </section>
+</div>
+<script>
+let selectedAmount = 2500;
+let method = "card";
+function formatNaira(amount){return new Intl.NumberFormat("en-NG",{style:"currency",currency:"NGN",maximumFractionDigits:0}).format(amount);}
+function getTokens(){return Number(localStorage.getItem("foodchainTokens") || 0);}
+function renderTokens(){const tokens=getTokens();document.getElementById("tokenBalance").textContent=`${tokens} ${tokens===1?"Token":"Tokens"}`;}
+function selectAmount(amount,button){selectedAmount=amount;document.querySelectorAll(".package").forEach(item=>item.classList.remove("active"));button.classList.add("active");renderSummary();}
+function setMethod(next){method=next;document.getElementById("cardMethod").classList.toggle("active",next==="card");document.getElementById("transferMethod").classList.toggle("active",next==="transfer");document.getElementById("cardForm").style.display=next==="card"?"block":"none";document.getElementById("transferBox").style.display=next==="transfer"?"block":"none";}
+function renderSummary(){const tokens=selectedAmount/500;document.getElementById("tokensOut").textContent=`${tokens} ${tokens===1?"Token":"Tokens"}`;document.getElementById("amountOut").textContent=formatNaira(selectedAmount);}
+function completeTopup(){const tokensToAdd=selectedAmount/500;const next=getTokens()+tokensToAdd;localStorage.setItem("foodchainTokens",String(next));renderTokens();document.getElementById("status").textContent=`${tokensToAdd} tokens added using ${method==="card"?"card":"transfer"} checkout.`;}
+renderTokens();renderSummary();
+</script>
+</body>
+</html>
+
+
+
