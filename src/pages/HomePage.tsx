@@ -10,7 +10,7 @@ export default function HomePage() {
 
   const handleGetStarted = (e: React.FormEvent) => {
     e.preventDefault();
-    window.location.href = '/signup.html';
+    window.location.href = '/signup';
   };
 
   return (
