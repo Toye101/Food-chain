@@ -34,8 +34,8 @@ export default function Header() {
           </div>
 
           <button
-            onClick={() => window.location.href = '/signup.html'}
-            className="rounded-full bg-gradient-to-r from-orange-500 to-orange-400 px-9 py-3 text-sm font-semibold text-white shadow-[0_20px_60px_rgba(249,115,22,0.18)] transition hover:brightness-110"
+            onClick={() => window.location.href = '/signup'}
+            className="rounded-full bg-gradient-to-r from-orange-500 to-orange-400 px-9 py-3 text-sm font-semibold text-white shadow-[0_20px_60px_rgba(249,115,22,0.18)] transition hover:brightness-105"
           >
             Order Now
           </button>
