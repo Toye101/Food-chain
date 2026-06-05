@@ -1,0 +1,21 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/signup",
+      "destination": "/signup.html"
+    },
+    {
+      "source": "/customer",
+      "destination": "/customer/work/foodchain-customer/index.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/Admin/2026-06-04/files-mentioned-by-the-user-foodchain/outputs/foodchain_admin_polished.html"
+    }
+  ]
+}
